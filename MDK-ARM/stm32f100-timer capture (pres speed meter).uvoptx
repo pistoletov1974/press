@@ -150,50 +150,50 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>143</LineNumber>
+          <LineNumber>199</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231238</Address>
+          <Address>134224346</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Src/main.c</Filename>
+          <Filename>../Src/tim.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\stm32f100_timer_capture__pres_speed_meter_\../Src/main.c\143</Expression>
+          <Expression>\\stm32f100_timer_capture__pres_speed_meter_\../Src/tim.c\199</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>122</LineNumber>
+          <LineNumber>2755</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231166</Address>
+          <Address>134226732</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Src/main.c</Filename>
+          <Filename>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\stm32f100_timer_capture__pres_speed_meter_\../Src/main.c\122</Expression>
+          <Expression>\\stm32f100_timer_capture__pres_speed_meter_\../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c\2755</Expression>
         </Bp>
         <Bp>
           <Number>2</Number>
           <Type>0</Type>
-          <LineNumber>126</LineNumber>
+          <LineNumber>2842</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231258</Address>
+          <Address>134226962</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Src/main.c</Filename>
+          <Filename>../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\stm32f100_timer_capture__pres_speed_meter_\../Src/main.c\126</Expression>
+          <Expression>\\stm32f100_timer_capture__pres_speed_meter_\../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c\2842</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -249,6 +249,14 @@
         <Entry>
           <Name>System Viewer\GPIOA</Name>
           <WinId>35905</WinId>
+        </Entry>
+        <Entry>
+          <Name>System Viewer\NVIC</Name>
+          <WinId>35902</WinId>
+        </Entry>
+        <Entry>
+          <Name>System Viewer\TIM1</Name>
+          <WinId>35903</WinId>
         </Entry>
       </SystemViewers>
       <DebugDescription>
@@ -326,7 +334,7 @@
       <GroupNumber>2</GroupNumber>
       <FileNumber>5</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>../Src/gpio.c</PathWithFileName>
