@@ -34,7 +34,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
-
+#include "dac.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN 0 */
@@ -195,6 +195,10 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
     /* Peripheral interrupt init */
     HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(TIM1_CC_IRQn);
+		HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
+
+		
   /* USER CODE BEGIN TIM1_MspInit 1 */
 
   /* USER CODE END TIM1_MspInit 1 */
@@ -316,17 +320,25 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   __HAL_TIM_SetCounter(&htim1,0);  
 	//volatile uint32_t count = __HAL_TIM_GetCounter(&htim2);
 	printf("%d,%d  \n", uwIC2Value1,++count);
-	if (count==330) {
-	 HAL_GPIO_WritePin(GPIOA,GPIO_PIN_11,GPIO_PIN_SET);
-   count=0;
-   if (HAL_TIM_IC_Stop_IT(&htim1, TIM_CHANNEL_1)!=HAL_OK) 
-								{
-								Error_Handler();
-								}		
-	 printf("valve off \n"); 							
+	if (uwIC2Value1 > 560 && uwIC2Value1<20000) {
+				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  uwIC2Value1);	
 	}
+	    else {
+				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,0);		
+			
+			}
+
 	
 }	
+
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+	printf("elapsed  \n" );
+	
+}
+
+
+
 /* USER CODE END 1 */
 
 /**

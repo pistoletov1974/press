@@ -30,4 +30,5 @@ stm32f100-timer capture (pres speed meter)\tim.o: ../Drivers/STM32F1xx_HAL_Drive
 stm32f100-timer capture (pres speed meter)\tim.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 stm32f100-timer capture (pres speed meter)\tim.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
 stm32f100-timer capture (pres speed meter)\tim.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
+stm32f100-timer capture (pres speed meter)\tim.o: ../Inc/dac.h
 stm32f100-timer capture (pres speed meter)\tim.o: ../Inc/gpio.h
