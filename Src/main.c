@@ -121,24 +121,34 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	printf("%d %d %d\n", SystemCoreClock,HAL_RCC_GetPCLK1Freq(),HAL_RCC_GetPCLK2Freq());
 	HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
+	
+	
   while (1)
   {
   /* USER CODE END WHILE */
-		/* DAC пока закоменти
 		
-		for (uint16_t i =0; i<=4096; i++) {
+		
+		for (uint16_t i =1000; i<4096; i++) {
 			
 			if (HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  i)!=HAL_OK)
 					{
 		Error_Handler();
 	};
-			
+	
 			HAL_Delay(5);
 		//	printf("%d\n",i);
 			
 
- 		}   */
-
+ 		}   
+		      uint16_t j = 4095;
+					if (HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  j)!=HAL_OK)
+					{
+		Error_Handler();
+	};
+		
+		
+		HAL_Delay(100000);
+	}
   /* USER CODE BEGIN 3 */
 		
 		
@@ -161,7 +171,7 @@ int main(void)
 		
 		HAL_Delay(50);
 		
-  }
+  
 
 
 }

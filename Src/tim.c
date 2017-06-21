@@ -316,7 +316,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
   __HAL_TIM_SetCounter(&htim1,0);  
 	//volatile uint32_t count = __HAL_TIM_GetCounter(&htim2);
 	printf("%d,%d  \n", uwIC2Value1,++count);
-	if (count==315) {
+	if (count==330) {
 	 HAL_GPIO_WritePin(GPIOA,GPIO_PIN_11,GPIO_PIN_SET);
    count=0;
    if (HAL_TIM_IC_Stop_IT(&htim1, TIM_CHANNEL_1)!=HAL_OK) 
