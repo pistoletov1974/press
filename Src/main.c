@@ -121,10 +121,14 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	printf("%d %d %d\n", SystemCoreClock,HAL_RCC_GetPCLK1Freq(),HAL_RCC_GetPCLK2Freq());
 	HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
+
 	   	if (HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1)!=HAL_OK) 
 								{
 								Error_Handler();
 								} 
+					//				HAL_TIM_Base_Start_IT(&htim1);
+								
+	//	__HAL_TIM_ENABLE_IT(&htim1, TIM_IT_UPDATE && TIM_IT_CC1);						
 	
   while (1)
   {
