@@ -104,7 +104,6 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
-	VALVE_OFF;
 
   /* USER CODE BEGIN 2 */
 
@@ -126,32 +125,22 @@ int main(void)
 								{
 								Error_Handler();
 								} 
-					//				HAL_TIM_Base_Start_IT(&htim1);
+									HAL_TIM_Base_Start_IT(&htim1);
 								
 	//	__HAL_TIM_ENABLE_IT(&htim1, TIM_IT_UPDATE && TIM_IT_CC1);						
 	
   while (1)
   {
   /* USER CODE END WHILE */
-  
 
-		
-		
-	
-	}
   /* USER CODE BEGIN 3 */
 		
 		
 		
   /* USER CODE END 3 */
-		
-
-		
-  
-
 
 }
-
+}
 /** System Clock Configuration
 */
 void SystemClock_Config(void)
