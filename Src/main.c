@@ -119,7 +119,38 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	printf("%d %d %d\n", SystemCoreClock,HAL_RCC_GetPCLK1Freq(),HAL_RCC_GetPCLK2Freq());
-	HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
+	// test display 
+	
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+	 HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
+	 HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, 0);
+	 HAL_Delay(10000);
+
+for (int i=0;i<4095; i++) 
+	{
+		HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, i);
+		HAL_Delay(1);
+	}
+	
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+	
+	HAL_Delay(1000);
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
+		for (int i=4095;i>1; i--) 
+	{
+		HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, i);
+		HAL_Delay(1);
+	}
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+	
+	
+	
+	
+	
 
 	   	if (HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1)!=HAL_OK) 
 								{
