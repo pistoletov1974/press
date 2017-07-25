@@ -42,7 +42,7 @@
 /* Private define ------------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
-
+#define _Kal  0.7
 /* USER CODE END Private defines */
 
 /**

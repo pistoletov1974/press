@@ -36,6 +36,7 @@
 #include "tim.h"
 #include "dac.h"
 #include "gpio.h"
+#include "main.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -316,13 +317,16 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 /* USER CODE BEGIN 1 */
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 	static uint32_t count=0;
+	static uint32_t data=0;
+	static uint32_t data_prev=0;
 	volatile uint32_t uwIC2Value1 = HAL_TIM_ReadCapturedValue(&htim1, TIM_CHANNEL_1);
+	data=_Kal*uwIC2Value1 +(1-_Kal)*data_prev;
   __HAL_TIM_SetCounter(&htim1,0);  
 
 	//volatile uint32_t count = __HAL_TIM_GetCounter(&htim2);
-	printf("%d,%d  \n", uwIC2Value1,++count);
-	if (uwIC2Value1 > 560 && uwIC2Value1<20000) {
-				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  2300000/uwIC2Value1);	
+	printf("%d,%d  \n", data,++count);
+	if (data > 560 ) {
+				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  2300000/data);	
 		     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
 	       HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
 	}
@@ -332,7 +336,7 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 	      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET); 				
 			
 			}
-
+  data_prev=data;
 		}
 
 

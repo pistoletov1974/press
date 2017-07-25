@@ -125,7 +125,7 @@ int main(void)
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
 	 HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
 	 HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, 0);
-	 HAL_Delay(10000);
+	 // HAL_Delay(10000);
 
 for (int i=0;i<4095; i++) 
 	{
