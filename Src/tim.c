@@ -54,7 +54,7 @@ void MX_TIM1_Init(void)
   TIM_IC_InitTypeDef sConfigIC;
 
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 160;
+  htim1.Init.Prescaler = 240;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim1.Init.Period = 65000;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV2;
@@ -325,13 +325,13 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
    
 
 	//volatile uint32_t count = __HAL_TIM_GetCounter(&htim2);
-	printf("%d,%d  \n", data,++count);
+	printf("%d  %d \n",data,++count);
 	if (data > 560 ) {
 				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  2300000/data);	
 		     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
 	       HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
 	}
-	    else  if (data_prev < 550)  {
+	    else  if (data_prev < 550 && data<550)  {
 				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,0);	
         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
 	      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET); 				
