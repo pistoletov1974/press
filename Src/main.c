@@ -4,7 +4,7 @@
   * Description        : Main program body
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2017 STMicroelectronics
+  * COPYRIGHT(c) 2018 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -35,11 +35,14 @@
 #include "stm32f1xx_hal.h"
 #include "dac.h"
 #include "i2c.h"
+#include "spi.h"
 #include "tim.h"
 #include "gpio.h"
 
+
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include "max7219.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -104,6 +107,7 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
+  MX_SPI1_Init();
 
   /* USER CODE BEGIN 2 */
 
@@ -120,7 +124,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 	printf("%d %d %d\n", SystemCoreClock,HAL_RCC_GetPCLK1Freq(),HAL_RCC_GetPCLK2Freq());
 	// test display 
-	
+	 init_max7219(6);
+     
+     displayDigit(128,1);
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
 	 HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
@@ -171,7 +177,8 @@ for (int i=0;i<4095; i++)
   /* USER CODE END 3 */
 
 }
-}
+  }
+
 /** System Clock Configuration
 */
 void SystemClock_Config(void)
@@ -187,7 +194,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL3;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();

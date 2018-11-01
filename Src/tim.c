@@ -5,7 +5,7 @@
   *                      of the TIM instances.
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2017 STMicroelectronics
+  * COPYRIGHT(c) 2018 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -35,8 +35,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
 #include "dac.h"
+
 #include "gpio.h"
-#include "main.h"
 
 /* USER CODE BEGIN 0 */
 

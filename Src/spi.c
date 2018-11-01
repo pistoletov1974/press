@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : DAC.c
+  * File Name          : SPI.c
   * Description        : This file provides code for the configuration
-  *                      of the DAC instances.
+  *                      of the SPI instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2018 STMicroelectronics
@@ -33,7 +33,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "dac.h"
+#include "spi.h"
 
 #include "gpio.h"
 
@@ -41,77 +41,79 @@
 
 /* USER CODE END 0 */
 
-DAC_HandleTypeDef hdac;
+SPI_HandleTypeDef hspi1;
 
-/* DAC init function */
-void MX_DAC_Init(void)
+/* SPI1 init function */
+void MX_SPI1_Init(void)
 {
-  DAC_ChannelConfTypeDef sConfig;
 
-    /**DAC Initialization 
-    */
-  hdac.Instance = DAC;
-  if (HAL_DAC_Init(&hdac) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-    /**DAC channel OUT1 config 
-    */
-  sConfig.DAC_Trigger = DAC_TRIGGER_NONE;
-  sConfig.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
-  if (HAL_DAC_ConfigChannel(&hdac, &sConfig, DAC_CHANNEL_1) != HAL_OK)
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
   }
 
 }
 
-void HAL_DAC_MspInit(DAC_HandleTypeDef* dacHandle)
+void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(dacHandle->Instance==DAC)
+  if(spiHandle->Instance==SPI1)
   {
-  /* USER CODE BEGIN DAC_MspInit 0 */
+  /* USER CODE BEGIN SPI1_MspInit 0 */
 
-  /* USER CODE END DAC_MspInit 0 */
+  /* USER CODE END SPI1_MspInit 0 */
     /* Peripheral clock enable */
-    __HAL_RCC_DAC_CLK_ENABLE();
+    __HAL_RCC_SPI1_CLK_ENABLE();
   
-    /**DAC GPIO Configuration    
-    PA4     ------> DAC_OUT1 
+    /**SPI1 GPIO Configuration    
+    PA5     ------> SPI1_SCK
+    PA7     ------> SPI1_MOSI 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_4;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /* USER CODE BEGIN DAC_MspInit 1 */
+  /* USER CODE BEGIN SPI1_MspInit 1 */
 
-  /* USER CODE END DAC_MspInit 1 */
+  /* USER CODE END SPI1_MspInit 1 */
   }
 }
 
-void HAL_DAC_MspDeInit(DAC_HandleTypeDef* dacHandle)
+void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 {
 
-  if(dacHandle->Instance==DAC)
+  if(spiHandle->Instance==SPI1)
   {
-  /* USER CODE BEGIN DAC_MspDeInit 0 */
+  /* USER CODE BEGIN SPI1_MspDeInit 0 */
 
-  /* USER CODE END DAC_MspDeInit 0 */
+  /* USER CODE END SPI1_MspDeInit 0 */
     /* Peripheral clock disable */
-    __HAL_RCC_DAC_CLK_DISABLE();
+    __HAL_RCC_SPI1_CLK_DISABLE();
   
-    /**DAC GPIO Configuration    
-    PA4     ------> DAC_OUT1 
+    /**SPI1 GPIO Configuration    
+    PA5     ------> SPI1_SCK
+    PA7     ------> SPI1_MOSI 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_4);
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_7);
 
   }
-  /* USER CODE BEGIN DAC_MspDeInit 1 */
+  /* USER CODE BEGIN SPI1_MspDeInit 1 */
 
-  /* USER CODE END DAC_MspDeInit 1 */
+  /* USER CODE END SPI1_MspDeInit 1 */
 } 
 
 /* USER CODE BEGIN 1 */
