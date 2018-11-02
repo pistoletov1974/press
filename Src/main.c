@@ -74,6 +74,7 @@ void Error_Handler(void);
 struct __FILE { int handle; /* Add whatever you need here */ };
 FILE __stdout;
 FILE __stdin;
+uint64_t bar;
 
 int fputc(int ch, FILE *f) {
    if (DEMCR & TRCENA) {
@@ -126,7 +127,29 @@ int main(void)
 	// test display 
 	 init_max7219(6);
      
-     displayDigit(128,1);
+   //  displayDigit(1,0);
+ /*    for (int j=0;j<=7;j++) {
+     for (int i=0;i<=7;i++) {
+     
+     displayDigit(1<<i,j);
+     HAL_Delay(20);    
+     
+     }
+     max7219_clean();
+    
+ }
+   */
+   for (uint8_t i=0;i<=50;i++) {
+       bar=0x0000000000000001<<i;
+       
+       displayBar(bar);
+       HAL_Delay(100);
+       printf ("%d  %llu \n",i,bar);
+       
+       
+       
+   }
+   
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
 	 HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
@@ -194,7 +217,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL3;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();

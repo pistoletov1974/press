@@ -145,17 +145,34 @@ void displayNumberHigh (uint16_t number) {
 
 void displayDigit (uint8_t digit, uint8_t pos)    {
     
-       sendData((pos+1)<<8 |  digit);
+    unsigned int dig_reverse;
+    dig_reverse=(__RBIT(digit));
+    dig_reverse=dig_reverse>>24;      
+    sendData((pos+1)<<8 |  dig_reverse);
 }    
+
+
+void displayBar (uint64_t data) {
+  
+    union {
+    uint64_t inp;
+    uint8_t dig[8];    
+    } input;
+    unsigned int dig_reverse;
+    input.inp=data;
+    max7219_clean();
+    for (uint8_t i=0;i<8;i++)  {
+    dig_reverse=__RBIT(input.dig[i]);
+    dig_reverse=dig_reverse>>24;      
+    sendData((i+1)<<8 |  dig_reverse);    
+    
+    }
     
 
-uint8_t reverseBitsByte(uint8_t x) {
-  uint8_t intSize = 8;
- uint8_t y=0;
-  for(uint8_t position=intSize-1; position>=0; position--){
-    y+=((x&1)<<position);
-    x >>= 1;
-  }
-  return y;
 }
+
+
+
+    
+
 
