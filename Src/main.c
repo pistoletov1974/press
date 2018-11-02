@@ -140,11 +140,11 @@ int main(void)
  }
    */
    for (uint8_t i=0;i<=50;i++) {
-       bar=0x0000000000000001<<i;
+   
        
-       displayBar(bar);
-       HAL_Delay(100);
-       printf ("%d  %llu \n",i,bar);
+       displayBar(i);
+       HAL_Delay(30);
+       printf ("%d  ",i);
        
        
        

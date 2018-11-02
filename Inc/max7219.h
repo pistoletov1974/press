@@ -9,6 +9,6 @@ void displayNumberLow (uint16_t number);
 void displayNumberHigh (uint16_t number);
 void max7219_clean(void);
 void displayDigit (uint8_t digit,uint8_t pos) ;
-void displayBar (uint64_t data);
+void displayBar (uint8_t data);
 
 #endif /* __MAX7219_H__ */

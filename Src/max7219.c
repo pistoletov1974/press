@@ -152,24 +152,31 @@ void displayDigit (uint8_t digit, uint8_t pos)    {
 }    
 
 
-void displayBar (uint64_t data) {
+void displayBar (uint8_t data) {
   
-    union {
-    uint64_t inp;
-    uint8_t dig[8];    
-    } input;
-    unsigned int dig_reverse;
-    input.inp=data;
+    
     max7219_clean();
-    for (uint8_t i=0;i<8;i++)  {
-    dig_reverse=__RBIT(input.dig[i]);
-    dig_reverse=dig_reverse>>24;      
-    sendData((i+1)<<8 |  dig_reverse);    
+    uint8_t a,b;
+    a=data/8;
+    b=data%8;
+    unsigned int dig_work;
+    dig_work= 1<<b;
+    dig_work=__RBIT(dig_work);
+    dig_work=dig_work>>24;
+    sendData((a+1)<<8 | dig_work );
+    
+    
+    
+    
+    
+ 
+    
+    
     
     }
     
 
-}
+
 
 
 
