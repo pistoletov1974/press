@@ -35,6 +35,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
 #include "dac.h"
+#include "max7219.h"
 
 #include "gpio.h"
 
@@ -319,22 +320,35 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 	static uint32_t count=0;
 	static uint32_t data=0;
 	static uint32_t data_prev=0;
+    static uint8_t bar_data =0;
+    static uint16_t data_median;
+    static uint16_t data_exp;
+    
 	volatile uint32_t uwIC2Value1 = HAL_TIM_ReadCapturedValue(&htim1, TIM_CHANNEL_1);
 	 __HAL_TIM_SetCounter(&htim1,0);
-	data=_Kal*uwIC2Value1 +(1-_Kal)*data_prev;
+	//data=_Kal*uwIC2Value1 +(1-_Kal)*data_prev;
+    data = uwIC2Value1;
+    
+   
    
 
 	//volatile uint32_t count = __HAL_TIM_GetCounter(&htim2);
-	printf("%d  %d \n",data,++count);
-	if (data > 560 ) {
-				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  2300000/data);	
-		     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
-	       HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
+	printf("%d, %d ,%d, %d \n",bar_data,data,data_median,++count);
+	if (data > 560 && data<27000) {
+		//		HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,  2300000/data);	
+		//     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+	    //   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_SET);
+         data_median=median_filter(data);
+        bar_data =  (27780/data_median);
+      //  max7219_clean();
+        displayBar(bar_data);
+          
 	}
-	    else  if (data_prev < 550 && data<550)  {
-				HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,0);	
-        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
-	      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET); 				
+	    else  if (data<550)  {
+		//		HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,0);	
+      //  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	 //     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET); 		
+           displayBar(49);            
 			
 			}
   data_prev=data;
@@ -344,10 +358,12 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	
 	printf("elapsed  \n" );
-	   HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,0);
-		 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
-	   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
-	
+	  // HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R,0);
+	//	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
+	//
+//    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+	max7219_clean();
+    displayBar(0);
 }
 
 

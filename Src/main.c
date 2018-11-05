@@ -38,6 +38,7 @@
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
+#include "mediana.h"
 
 
 /* USER CODE BEGIN Includes */
@@ -144,8 +145,8 @@ int main(void)
        
        displayBar(i);
        HAL_Delay(30);
-       printf ("%d  ",i);
-       
+      // printf ("%d  ",i);
+        bar=1ULL<<50;
        
        
    }
@@ -155,7 +156,7 @@ int main(void)
 	 HAL_DAC_Start(&hdac, DAC1_CHANNEL_1);
 	 HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, 0);
 	 // HAL_Delay(10000);
-
+/*
 for (int i=0;i<4095; i++) 
 	{
 		HAL_DAC_SetValue(&hdac, DAC1_CHANNEL_1, DAC_ALIGN_12B_R, i);
@@ -176,7 +177,7 @@ for (int i=0;i<4095; i++)
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, GPIO_PIN_RESET);
 	 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
 	
-	
+	*/
 	
 	
 	
